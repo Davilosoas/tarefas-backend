@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,11 +10,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tasks', function (Blueprint $table) {
+        Schema::create('task_lists', function (Blueprint $table) {
             $table->id();
-            $table->json('tasks')->nullable();
             $table->string('description');
             $table->boolean('completed')->default(false);
+            $table->timestamps();
+        });
+
+        Schema::create('tasks', function (Blueprint $table) {
+            $table->id();
+            $table->string('description');
+            $table->boolean('completed')->default(false);
+            $table->foreignId('task_list_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -26,5 +32,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('tasks');
+        Schema::dropIfExists('task_lists');
     }
 };

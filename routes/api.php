@@ -18,10 +18,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/tasks', 'App\Http\Controllers\TaskController@index');
-Route::get('/tasks/create', 'App\Http\Controllers\TaskController@create');
-Route::post('/tasks', 'App\Http\Controllers\TaskController@store');
-Route::get('/tasks/{id}', 'App\Http\Controllers\TaskController@show');
-Route::get('/tasks/{id}/edit', 'App\Http\Controllers\TaskController@edit');
-Route::put('/tasks/{id}', 'App\Http\Controllers\TaskController@update');
-Route::delete('/tasks/{id}', 'App\Http\Controllers\TaskController@destroy');
+Route::get('/list', 'App\Http\Controllers\ListController@index');
+Route::post('/list/create', 'App\Http\Controllers\ListController@createList');
+Route::put('/list/rename', 'App\Http\Controllers\ListController@renameList');
+Route::delete('/list/delete', 'App\Http\Controllers\ListController@deleteList');
+
+Route::post('/task/create', 'App\Http\Controllers\ListController@createTask');
+Route::put('/task/rename', 'App\Http\Controllers\ListController@renameTask');
+Route::delete('/task/{id}', 'App\Http\Controllers\ListController@deleteTask');
+Route::put('/task/status', 'App\Http\Controllers\ListController@changeTaskStatus');
+
+
+
